@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h4>TO DO LIST</h4>
+    <div class="add_box" id="addBox">
+        <input type="text" id="input">
+        <button class="btn ass-btn" id="addBtn" onclick="addList()">Add</button>        
+        <p id="date"></p>
+
+    </div>
+
+    <ul class="list" id="list">
+
+   
+    </ul>
+
+    <script>
+        let input = document.getElementById("input");
+        let list = document.getElementById("list");
+        let minTextLength = 3;
+        let i = 1;
+
+        function showList(text){
+            list.innerHTML +=  `
+                <li class="list-item" id="list${i}" >
+                
+                <span id="listText${i}">${text}</span>
+                <button class="btn del-btn" onclick="deleteList(${i})">Delete</button>
+                <button class="btn edit-btn" onclick="editList(${i})">Edit</button><br>
+                <span id="listText${i}">${text}</span>
+
+
+                </li>
+            `
+            i ++;
+        }
+
+        function deleteList(listId){
+            let current = document.getElementById(`list${listId}`);
+            let currentText = document.getElementById(`listText${listId}`).innerHTML;
+            let deleteConfim = confirm(`Are you sure want to delete '${currentText}'`);
+
+            if(deleteConfim){
+                    list.removeChild(current);
+            }else{
+                console.log(`Delete Cancle '${currentText}'`);
+            }
+        }
+
+        // function deleteList(listId){
+        //     let current = document.getElementById(`list${listId}`);
+        //     list.removeChild(current);
+        // }
+        
+        function editList(listId){
+            let current = document.getElementById(`listText${listId}`);
+            let newText = prompt("say something", current.innerHTML);
+            
+            if(textFilter(newText)){
+                current.innerHTML = newText;
+            }else{
+
+            }
+        }
+
+        function textFilter(x){
+            if(x){
+                
+                if(x.length >= minTextLength){
+
+                    return x;
+
+                }else{
+                    return alert(" br nyr 3 htet po yay ")
+                }
+
+            }else{
+                return alert("input value is empty") ;
+            }
+        }
+    
+        function addList(){
+            //get
+           let inputText = textFilter(input.value);
+           let d = new Date();
+           
+
+            //set
+            if(inputText){
+
+               showList(inputText);
+                input.value = "";
+                
+                console.log (d);
+
+            }
+        }
+
+        // let d = new Date();
+        // let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        // document.getElementById("date").innerHTML = months[d.getMonth()];
+        // document.getElementById("date").innerHTML = d.getHours("");
+        // document.getElementById("date").innerHTML = d.getMinutes();
+
+    </script>
+    
+</body>
+</html>
